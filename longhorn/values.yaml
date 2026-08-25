@@ -1,0 +1,6 @@
+preUpgradeChecker:
+  jobEnabled: false
+
+global:
+  nodeSelector:
+    longhorn: "true"

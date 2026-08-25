@@ -1,0 +1,7 @@
+{
+  "repoURL": "https://charts.longhorn.io",
+  "chart": "longhorn",
+  "targetRevision": "1.11.1",
+  "namespace": "longhorn-system",
+  "additionalManifests": true
+}

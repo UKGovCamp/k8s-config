@@ -11,5 +11,5 @@ spec:
       version: "v2"
       auth:
         kubernetes:
-          mountPath: kubernetes
+          mountPath: ukgovcamp_kubernetes
           role: ukgovcamp

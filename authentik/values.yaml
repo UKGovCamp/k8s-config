@@ -1,0 +1,48 @@
+authentik:
+  secret_key: file:///authentik-secret-key/secret_key
+  postgresql:
+    host: file:///postgres-creds/host
+    user: file:///postgres-creds/username
+    password: file:///postgres-creds/password
+
+server:
+  replicas: 1
+  route:
+    main:
+      enabled: true
+      hostnames:
+      - sso.ukgovcamp.com
+      parentRefs:
+      - name: traefik-gateway
+        namespace: traefik
+  volumes:
+    - name: postgres-creds
+      secret:
+        secretName: authentik-db-app
+    - name: authentik-secret-key
+      secret:
+        secretName: authentik-secret-key
+  volumeMounts:
+    - name: postgres-creds
+      mountPath: /postgres-creds
+      readOnly: true
+    - name: authentik-secret-key
+      mountPath: /authentik-secret-key
+      readOnly: true
+
+worker:
+  replicas: 1
+  volumes:
+    - name: postgres-creds
+      secret:
+        secretName: authentik-db-app
+    - name: authentik-secret-key
+      secret:
+        secretName: authentik-secret-key
+  volumeMounts:
+    - name: postgres-creds
+      mountPath: /postgres-creds
+      readOnly: true
+    - name: authentik-secret-key
+      mountPath: /authentik-secret-key
+      readOnly: true

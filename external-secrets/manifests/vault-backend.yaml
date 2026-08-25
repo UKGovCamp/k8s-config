@@ -14,4 +14,5 @@ spec:
           roleId: 6ff156a2-7f5a-1046-c776-3be8c66b9c5f
           secretRef:
             name: vault-config
+            namespace: ukgovcamp-external-secrets
             key: secret-id

@@ -16,7 +16,6 @@ parameters:
   numberOfReplicas: "1"
   staleReplicaTimeout: "30"
   unmapMarkSnapChainRemoved: ignored
-  nodeSelector: engiqueer
 allowVolumeExpansion: true
 provisioner: driver.longhorn.io
 reclaimPolicy: Delete

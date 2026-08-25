@@ -1,0 +1,41 @@
+---
+apiVersion: external-secrets.io/v1
+kind: ExternalSecret
+metadata:
+  name: cloudflare-api-token
+spec:
+  refreshInterval: "15s"
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: cloudflare-api-token
+  data:
+  - secretKey: api-token
+    remoteRef:
+      conversionStrategy: Default	
+      decodingStrategy: None
+      metadataPolicy: None
+      key: cloudflare_api_token
+      property: value
+---
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: issuer
+spec:
+  acme:
+    email: acme@engiqueer.net
+    profile: tlsserver
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: issuer-account-key
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token
+            key: api-token
+      selector:
+        dnsZones:
+        - ukgovcamp.com
